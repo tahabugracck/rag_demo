@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metin ve Soru Sor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">PDF'ten Alınan Metin</h1>
+        <div class="mt-4">
+            <textarea class="form-control" rows="15" readonly>{{ text }}</textarea>
+        </div>
+        <h2 class="mt-5">Sorunuzu Sorun</h2>
+        <form id="questionForm" class="mt-3">
+            <div class="mb-3">
+                <label for="question" class="form-label">Sorunuz:</label>
+                <input type="text" id="question" name="question" class="form-control" required>
+            </div>
+            <input type="hidden" id="context" name="context" value="{{ text }}">
+            <button type="submit" class="btn btn-success">Sor</button>
+        </form>
+        <div id="answerSection" class="mt-4 d-none">
+            <h4>Cevap:</h4>
+            <p id="answer" class="text-success"></p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#questionForm").on("submit", function (e) {
+                e.preventDefault();
+                const question = $("#question").val();
+                const context = $("#context").val();
+
+                $.ajax({
+                    url: "/ask",
+                    method: "POST",
+                    data: { question, context },
+                    success: function (response) {
+                        $("#answerSection").removeClass("d-none");
+                        $("#answer").text(response.answer);
+                    },
+                    error: function () {
+                        $("#answerSection").removeClass("d-none");
+                        $("#answer").text("Bir hata oluştu. Lütfen tekrar deneyin.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

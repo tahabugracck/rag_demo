@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF İşleme ve Soru Sorma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">PDF İşleme ve Soru Sorma</h1>
+        <form action="/process_pdf" method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <label for="pdf_file" class="form-label">PDF Dosyasını Yükleyin:</label>
+                <input type="file" name="pdf_file" id="pdf_file" class="form-control" accept="application/pdf" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Yükle ve İşle</button>
+        </form>
+    </div>
+</body>
+</html>
